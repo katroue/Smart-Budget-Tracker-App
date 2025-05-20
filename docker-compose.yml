@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  node-backend:
+    build:
+      context: ./backend-node
+      dockerfile: ../Dockerfile-node
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend-node/.env
+    depends_on:
+      - db
+
+  php-backend:
+    build:
+      context: ./backend-php
+      dockerfile: ../Dockerfile-php
+    ports:
+      - "8000:80"
+
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    ports:
+      - "3000:80"
+
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: budget_db
+      MYSQL_USER: budget_user
+      MYSQL_PASSWORD: userpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  db_data:
