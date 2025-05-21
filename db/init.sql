@@ -12,7 +12,5 @@ CREATE TABLE IF NOT EXISTS transactions (
     category VARCHAR(50),
     amount DECIMAL(10, 2),
     date DATE,
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES Users(id)
 );

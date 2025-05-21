@@ -10,13 +10,6 @@ services:
     depends_on:
       - db
 
-  php-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile-php
-    ports:
-      - "8000:80"
-
   frontend:
     image: nginx:alpine
     volumes:
