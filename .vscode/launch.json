@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "env": { "PORT": "5001" },
+      "name": "Launch backend-node/server.js",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/backend-node",
+      "program": "${workspaceFolder}/backend-node/server.js",
+      "runtimeArgs": ["--experimental-modules"],
+      "envFile": "${workspaceFolder}/backend-node/.env",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Debug Jest tests",
+      "cwd": "${workspaceFolder}/backend-node",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "test", "--"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

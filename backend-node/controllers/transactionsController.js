@@ -1,5 +1,4 @@
-// const db = require('../db/db');
-const TransactionModel = require('../models/transactionsModels');
+const TransactionModel = require('../models/transactionsModel');
 
 // GET /api/transactions
 exports.getAllTransactions = async (req, res) => {
@@ -7,7 +6,7 @@ exports.getAllTransactions = async (req, res) => {
   if (!userId) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
-  
+
   try {
     const rows = await TransactionModel.getAllTransactions(userId);
     res.json(rows);
