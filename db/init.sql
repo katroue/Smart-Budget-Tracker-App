@@ -1,4 +1,4 @@
-create table if not exists Users (
+create table if not exists users (
     id INT auto_increment primary key,
     username  varchar(50) not null,
     email varchar(100) not null,

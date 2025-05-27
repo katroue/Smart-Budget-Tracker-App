@@ -16,6 +16,8 @@ services:
       - ./frontend:/usr/share/nginx/html
     ports:
       - "3000:80"
+    depends_on:
+      - node-backend
 
   db:
     image: mysql:8
