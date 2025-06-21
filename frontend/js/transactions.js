@@ -1,4 +1,3 @@
-// >>> adjust this if you mapped the container differently
 const API_BASE = "http://localhost:5001/api/transactions";
 
 const tbody   = document.querySelector("#txTable tbody");
@@ -58,11 +57,11 @@ form.addEventListener("submit", async (e) => {
 
   try {
     await addTransaction(payload);
-    flash("Transaction added ✅");
+    flash("Transaction added");
     form.reset();
     await loadTransactions();
   } catch (err) {
-    flash("Error while saving ❌", "danger");
+    flash("Error while saving", "danger");
     console.error(err);
   }
 });
