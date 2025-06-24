@@ -2,10 +2,18 @@ const db = require('../db');
 
 async function register(username, email, passwordHash) {
     const [result] = await db.execute(
-        'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+        'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
         [username, email, passwordHash]
     );
-    return [result];
+    return result;
+}
+
+async function getUserByUsername(username) {
+    const [rows] = await db.execute(
+        'SELECT * FROM users WHERE username = ?',
+        [username]
+    );
+    return rows.length ? rows[0] : null;
 }
 
 async function getPasswordHash(username) {
@@ -34,6 +42,7 @@ async function modifyPassword(username, newPassword) {
 module.exports = {
     // function names
     register,
+    getUserByUsername,
     getPasswordHash,
     deleteUser,
     modifyPassword,

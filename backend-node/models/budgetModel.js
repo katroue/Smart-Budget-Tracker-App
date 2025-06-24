@@ -7,12 +7,12 @@ async function createBudget(userId, category, period, limit_amount, start_month)
     );
 }
 
-async function getBudget(user_id, category) {
+async function getBudget(user_id, category, period) {
     const [rows] = await db.execute(
-        'SELECT * FROM budget WHERE user_id = ? AND category = ?',
-        [user_id, category]
+        'SELECT * FROM budget WHERE user_id = ? AND category = ? AND period = ?',
+        [user_id, category, period]
     );
-    return rows.length ? [rows] : null;
+    return rows.length ? rows[0] : null;
 }
 
 async function getAllBudgets(user_id) {

@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 
-const transactionRoute = require('./routes/transactionsRoute');
-const authRoute = require('/routes/AuthRoute');
+const transactionRoute = require('./routes/transactionRoute');
+const authRoute = require('./routes/authRoute');
+const budgetRoute = require('./routes/budgetRoute')
 
 const cors = require('cors');
 
@@ -17,9 +18,10 @@ app.use((req, res, next) => {
 
 app.use('/api/transactions', transactionRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/budgets', budgetRoute);
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

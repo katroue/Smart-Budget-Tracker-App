@@ -4,36 +4,32 @@ const bcrypt = require('bcrypt'); // to hash passwords
 const UserModel = require('../models/authModel');  // ← même nom, même casse
 
 // POST /api/auth/register
+// controllers/authController.js
 exports.register = async (req, res) => {
-  const { username, email, password } = req.body;
-
-  // 1) basic validation
-  if (!username || !email || !password) {
-    return res.status(400).json({ error: 'All fields are required' });
-  }
-
   try {
-    // 2) hash the password (12 rounds is a good default)
-    const hash = await bcrypt.hash(password, 12);
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: 'All fields required' });
+    }
 
-    // 3) call the model
-    const [result] = await UserModel.register(username, email, hash);
+    const hash   = await bcrypt.hash(password, 12);
+    const result = await UserModel.register(username, email, hash);
 
-    // MySQL returns { insertId, affectedRows, … }
     return res.status(201).json({
       id: result.insertId,
       username,
       email
     });
   } catch (err) {
-    console.error(err);
-    // duplicate e-mail / username => MySQL error 1062
+    /* duplicate key → 1062 */
     if (err.code === 'ER_DUP_ENTRY') {
       return res.status(409).json({ error: 'User already exists' });
     }
+    console.error(err);
     res.status(500).json({ error: 'Server error' });
   }
 };
+
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const AuthController = require('../controllers/authController.')
+const authController = require('../controllers/authController');
 
-router.post('/register', AuthenticatorResponseController.register);
-router.get('/login', AuthController.login);
-router.delete('/delete', AuthController.delete);
-router.put('/modify', AuthController.modify);
+router.post('/register', authController.register);
+router.get('/login', authController.login);
+router.delete('/delete', authController.delete);
+router.put('/modify', authController.modify);
 
 module.exports = router;

@@ -16,23 +16,26 @@
   <nav class="navbar navbar-dark bg-dark mb-4">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">Budget Tracker</a>
-      <ul class="navbar-nav ms-auto gap-2">
-
-  <!-- Dashboard link -->
+      <ul class="navbar-nav ms-auto gap-2 flex-row">
   <li class="nav-item">
     <a href="index.html" class="nav-link px-3 py-1 rounded bg-primary text-white" data-page="index.html">
       Dashboard
     </a>
   </li>
-
-  <!-- Transactions link -->
   <li class="nav-item">
     <a href="transactions.html" class="nav-link px-3 py-1 rounded bg-primary text-white" data-page="transactions.html">
       Transactions
     </a>
   </li>
-
 </ul>
+<a href="auth.html" class="d-flex align-items-center ms-3 text-decoration-none">
+      <span class="bg-primary rounded-circle d-flex justify-content-center align-items-center" style="width:40px; height:40px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-person" viewBox="0 0 16 16">
+          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4-3a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/>
+          <path fill-rule="evenodd" d="M8 9a5 5 0 0 0-5 5v.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14a5 5 0 0 0-5-5zm-4 5a4 4 0 0 1 8 0v.5H4V14z"/>
+        </svg>
+      </span>
+    </a>
     </div>
   </nav>
 
@@ -79,6 +82,7 @@
     </form>
 
     <!-- Transactions table -->
+    <h2 class="h5 mb-3 mt-4">Past transactions</h2>
     <div class="table-responsive shadow-sm">
       <table class="table table-striped align-middle" id="txTable">
         <thead class="table-dark">

@@ -26,7 +26,7 @@ exports.createTransaction = async (req, res) => {
   }
 
   try {
-    const transID = await TransactionModel.createTransaction(userId, type, category, amount, date);
+    const transId = await TransactionModel.createTransaction(userId, type, category, amount, date);
     res.status(201).json({ id: transId, user_id: userId, type, category, amount, date });
   } catch (err) {
     console.error(err);

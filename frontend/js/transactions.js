@@ -23,7 +23,7 @@ async function loadTransactions() {
   list.forEach(tx => addRow(tx));
 }
 
-async function addTransaction(payload) {
+async function addTransaction(payload) { //error here
   const res = await fetch(API_BASE, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
