@@ -14,3 +14,13 @@ CREATE TABLE IF NOT EXISTS transactions (
     date DATE,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+
+CREATE TABLE budgets (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  category VARCHAR(50),
+  period ENUM('monthly','yearly') DEFAULT 'monthly',
+  limit_amount DECIMAL(10,2),
+  start_month DATE,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);

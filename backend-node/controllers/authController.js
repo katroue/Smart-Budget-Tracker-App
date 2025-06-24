@@ -1,6 +1,7 @@
 // controllers/loginController.js
 const bcrypt = require('bcrypt'); // to hash passwords
-const UserModel = require('../models/authModel');   // adjusts to your path
+// controllers/loginController.js
+const UserModel = require('../models/authModel');  // ← même nom, même casse
 
 // POST /api/auth/register
 exports.register = async (req, res) => {
@@ -47,16 +48,33 @@ exports.login = async (req, res) => {
   res.json({ message: 'Login OK' });
 };
 
-exports.delete = async (req, res0) => {
+exports.delete = async (req, res) => {
   const { username, password } = req.body;
 
   const hash = await UserModel/UserModel.getPasswordHash(username);
   if (!hash) return res.status(401).json({ error: 'Invalid credentials' });
 
+  // checking to see if the password is correct
   const ok = await bcrypt.compare(password, hash);
   if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
+  
+  const rows = await UserModel.deleteUser(username);
+  if (!rows) return res.status(404).json({ error: 'User not found' }); // checking to see if the user exists
 
-  const result = await UserModel.deleteUser(username);
+  res.json({message : 'Account succesfully deleted' }); // if yes, deletes
+};
 
-  res.json({message : 'Account succesfully deleted' });
-})
+exports.modify = async (req, res) => {
+  const { username, oldPassword, newPassord } = req.body;
+
+  const hash = await UserModel/UserModel.getPasswordHash(username);
+  if (!hash) return res.status(401).json({ error: 'Invalid credentials' });
+
+  // checking to see if the password is correct
+  const ok = await bcrypt.compare(oldPassword, hash);
+  if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
+
+  await UserModel.modifyPassword(username, newPassord);
+
+  res.json({message : 'Password successfully changed' });
+}
