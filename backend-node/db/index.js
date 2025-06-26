@@ -22,7 +22,7 @@ const {
 } = process.env;
 
 // Create the pool only once
-const pool = mysql.createPool({
+const db = mysql.createPool({
   host              : DB_HOST,
   port              : DB_PORT,
   user              : DB_USER,
@@ -40,12 +40,12 @@ const pool = mysql.createPool({
  */
 async function closePool() {
   try {
-    await pool.end();
+    await db.end();
     // console.log('MySQL pool closed');
   } catch (err) {
     console.error('Error closing MySQL pool', err);
   }
 }
 
-module.exports = { pool, closePool };
+module.exports = { db, closePool };
 

@@ -22,6 +22,13 @@ app.use('/api/budgets', budgetRoute);
 
 
 const PORT = process.env.PORT || 5002;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+});
+
+process.on('SIGINT', () => {
+  server.close(() => {
+    console.log(' Serveur arrêté proprement');
+    process.exit(0);
+  });
 });

@@ -1,15 +1,18 @@
-// controllers/loginController.js
 const bcrypt = require('bcrypt'); // to hash passwords
-// controllers/loginController.js
-const UserModel = require('../models/authModel');  // ← même nom, même casse
+const UserModel = require('../models/authModel');
 
 // POST /api/auth/register
-// controllers/authController.js
 exports.register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     if (!username || !email || !password) {
       return res.status(400).json({ error: 'All fields required' });
+    }
+
+    // Vérifie si l'utilisateur existe déjà
+    const existingUser = await UserModel.getUserByUsername(username);
+    if (existingUser) {
+      return res.status(409).json({ error: 'Username already exists' });
     }
 
     const hash   = await bcrypt.hash(password, 12);

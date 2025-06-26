@@ -1,5 +1,5 @@
 // Adjust if backend is on a different host/port
-const API = "http://localhost:5002/api/auth";
+const API = "http://localhost:5002/api/auth"; //error here
 
 const flash   = document.getElementById("flash");
 const regForm = document.getElementById("registerForm");

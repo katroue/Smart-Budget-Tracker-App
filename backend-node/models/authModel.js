@@ -1,4 +1,4 @@
-const db = require('../db');
+const { db } = require('../db');
 
 async function register(username, email, passwordHash) {
     const [result] = await db.execute(
