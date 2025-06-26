@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const transactionRoute = require('./routes/transactionRoute');
-const authRoute = require('./routes/authRoute');
+const authRoute = require('./routes/authsRoute');
 const budgetRoute = require('./routes/budgetRoute')
 
 const cors = require('cors');

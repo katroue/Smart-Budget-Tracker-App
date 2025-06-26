@@ -70,7 +70,7 @@ exports.deleteTransaction = async (req, res) => {
   if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
   try {
-    const rowsDeleted = await TransactionModel.deleteTransaction(id);
+    const rowsDeleted = await TransactionModel.deleteTransaction(id, userId);
 
     if (rowsDeleted === 0) return res.status(404).json({ error: 'Not found' });
 

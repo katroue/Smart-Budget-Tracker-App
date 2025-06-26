@@ -1,4 +1,4 @@
-const db = require('../db');
+const { db } = require('../db');
 
 async function createBudget(userId, category, period, limit_amount, start_month) {
     await db.execute(

@@ -1,8 +1,12 @@
+console.log
+
 const bcrypt = require('bcrypt'); // to hash passwords
 const UserModel = require('../models/authModel');
+const jwt = require('jsonwebtoken');
 
 // POST /api/auth/register
 exports.register = async (req, res) => {
+  console.log('We were here'); // test to see if the route is hit
   try {
     const { username, email, password } = req.body;
     if (!username || !email || !password) {
@@ -33,24 +37,26 @@ exports.register = async (req, res) => {
   }
 };
 
-
 exports.login = async (req, res) => {
   const { username, password } = req.body;
 
   const hash = await UserModel.getPasswordHash(username);
-  if (!hash) return res.status(401).json({ error: 'Invalid credentials' });
+  if (!hash) return res.status(401).json({ error: 'User doesn\'t exist' });
 
   const ok = await bcrypt.compare(password, hash);
-  if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
 
-  // issue JWT, set cookie, etc.
-  res.json({ message: 'Login OK' });
+  if (!ok) return res.status(401).json({ error: 'Wrong password' });
+
+  // Génère un JWT
+  const token = jwt.sign({ username }, process.env.JWT_SECRET || "dev_secret", { expiresIn: "1h" });
+
+  res.json({ token });
 };
 
 exports.delete = async (req, res) => {
   const { username, password } = req.body;
 
-  const hash = await UserModel/UserModel.getPasswordHash(username);
+  const hash = await UserModel.getPasswordHash(username);
   if (!hash) return res.status(401).json({ error: 'Invalid credentials' });
 
   // checking to see if the password is correct
@@ -64,16 +70,16 @@ exports.delete = async (req, res) => {
 };
 
 exports.modify = async (req, res) => {
-  const { username, oldPassword, newPassord } = req.body;
+  const { username, oldPassword, newPassword } = req.body;
 
-  const hash = await UserModel/UserModel.getPasswordHash(username);
+  const hash = await UserModel.getPasswordHash(username);
   if (!hash) return res.status(401).json({ error: 'Invalid credentials' });
 
   // checking to see if the password is correct
   const ok = await bcrypt.compare(oldPassword, hash);
   if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
 
-  await UserModel.modifyPassword(username, newPassord);
+  await UserModel.modifyPassword(username, newPassword);
 
   res.json({message : 'Password successfully changed' });
 }

@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5001/api/transactions";
+const API_BASE = "http://localhost:5002/api/transactions";
 
 const tbody   = document.querySelector("#txTable tbody");
 const form    = document.getElementById("txForm");

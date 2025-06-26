@@ -48,13 +48,13 @@ logForm?.addEventListener("submit", async e => {
       headers: { "Content-Type":"application/json" },
       body   : JSON.stringify(body)
     });
-    if (r.ok) {
-      const { token } = await r.json();
-      localStorage.setItem("jwt", token);      // simple storage
+    if (r.ok) { // r != ok
+      const { token } = await r.json(); 
+      localStorage.setItem("jwt", token);     
       showFlash("Logged in! Redirecting…");
       setTimeout(() => (location.href = "transactions.html"), 800);
     } else {
-      showFlash("Invalid credentials", "danger");
+      showFlash("Invalid credentials", "danger"); // what i get when i try to login
     }
   } catch (err) {
     console.error(err);

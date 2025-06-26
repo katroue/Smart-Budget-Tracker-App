@@ -1,4 +1,4 @@
-const db = require('../db');
+const { db } = require('../db');
 
 async function getAllTransactions(userId) {
     const [rows] = await db.execute(
@@ -17,7 +17,7 @@ async function createTransaction(userId, type, category, amount, date) {
 }
 
 async function updateTransaction(idTrans, type, category, amount) {
-  cont [result] = await db.execute(
+  const [result] = await db.execute(
     'UPDATE transactions SET type = ?, category = ?, amount = ? WHERE id = ?',
     [type, category, amount, idTrans]
   );
@@ -26,7 +26,7 @@ async function updateTransaction(idTrans, type, category, amount) {
 
 async function deleteTransaction(idTrans, userId) {
   const [result] = await db.execute(
-    'DELETE FROM transactions WHERE id = ? AND WHERE = userId = ?',
+    'DELETE FROM transactions WHERE id = ? AND WHERE user_id = ?',
     [idTrans, userId]
   );
   return result.affectedRows; // 0 (not found) or 1 (deleted)
@@ -34,7 +34,7 @@ async function deleteTransaction(idTrans, userId) {
 
 async function getTransactionByCategory(userId, category) {
   const [rows] = await db.execute(
-    'SELECT * FROM transactions WHERE userId = ? AND category = ?',
+    'SELECT * FROM transactions WHERE user_id = ? AND category = ?',
     [userId, category]
   );
   return rows;
